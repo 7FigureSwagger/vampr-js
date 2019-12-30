@@ -1,3 +1,5 @@
+
+
 class Vampire {
   constructor(name, yearConverted) {
     this.name = name;
@@ -47,12 +49,35 @@ class Vampire {
 
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
-    
+    if(name){
+      console.log('does exist', name)
+      return name;
+    } else {
+      return null;
+    }
   }
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
+    let descendants = 0;
+    let currentVamp = this;
+
+    function lineage(vamp) {
+      for (var i = 0; i<vamp.length; i++) {        
+        // console.log(vamp[i].name);
+        descendants++;
+        if (vamp[i].offspring) {
+          lineage(vamp[i].offspring);
+        }
+      }
+    }
+
+    if(currentVamp.numberOfOffspring > 0){
+      console.log(currentVamp.name, 'only 1');
+      lineage(currentVamp.offspring);
+    }
+
+    return descendants;
   }
 
   // Returns an array of all the vampires that were converted after 1980
